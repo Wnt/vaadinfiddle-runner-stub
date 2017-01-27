@@ -1,11 +1,13 @@
 FROM maven:3-jdk-8
 
-# need to use "--settings /usr/share/maven/ref/settings-docker.xml" in all mvn commands to persist cached artifacts
-
 # create standard Vaadin stub project
-RUN mkdir /webapp
+RUN mkdir /webapp ; \
+useradd --user-group --create-home vaadin ; \
+chown vaadin:vaadin /webapp
+
+USER vaadin
 RUN cd /webapp ; \
-mvn --settings /usr/share/maven/ref/settings-docker.xml \
+mvn \
  --batch-mode archetype:generate \
  -DarchetypeGroupId=com.vaadin \
  -DarchetypeArtifactId=vaadin-archetype-application \
@@ -17,11 +19,12 @@ mvn --settings /usr/share/maven/ref/settings-docker.xml \
 
 # compile the project 
 RUN cd /webapp/fiddleapp ; \
- mvn --settings /usr/share/maven/ref/settings-docker.xml compile
+ mvn compile
 
 # cache dependencies of jetty:run goal
 RUN cd /webapp/fiddleapp ; \
- mvn --settings /usr/share/maven/ref/settings-docker.xml jetty:start
+ mvn jetty:start
 
-RUN echo foo > /bar
-#CMD cd /webapp/fiddleapp && mvn --settings /usr/share/maven/ref/settings-docker.xml jetty:run
+# need to chage back to root user as the maven image runs some commands that expect rw permissions to /root/.m2/
+USER root
+
