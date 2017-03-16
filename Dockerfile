@@ -11,13 +11,12 @@ mvn \
  --batch-mode archetype:generate \
  -DarchetypeGroupId=com.vaadin \
  -DarchetypeArtifactId=vaadin-archetype-application \
- -DarchetypeRepository=https://maven.vaadin.com/vaadin-prereleases \
- -DarchetypeVersion=8.0.0.beta1 \
+ -DarchetypeVersion=8.0.2 \
  -DgroupId=org.vaadin.vaadinfiddle \
  -DartifactId=fiddleapp \
  -Dversion=0.1
 
-# compile the project 
+# compile the project
 RUN cd /webapp/fiddleapp ; \
  mvn compile
 
@@ -27,4 +26,3 @@ RUN cd /webapp/fiddleapp ; \
 
 # need to chage back to root user as the maven image runs some commands that expect rw permissions to /root/.m2/
 USER root
-
