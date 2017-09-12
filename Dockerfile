@@ -11,14 +11,14 @@ mvn \
  --batch-mode archetype:generate \
  -DarchetypeGroupId=com.vaadin \
  -DarchetypeArtifactId=vaadin-archetype-application \
- -DarchetypeVersion=8.0.2 \
+ -DarchetypeVersion=8.1.3 \
  -DgroupId=org.vaadin.vaadinfiddle \
  -DartifactId=fiddleapp \
  -Dversion=0.1
 
 # compile the project
 RUN cd /webapp/fiddleapp ; \
- mvn compile
+ mvn clean compile
 
 # cache dependencies of jetty:run goal
 RUN cd /webapp/fiddleapp ; \
