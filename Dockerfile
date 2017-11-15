@@ -11,7 +11,7 @@ mvn \
  --batch-mode archetype:generate \
  -DarchetypeGroupId=com.vaadin \
  -DarchetypeArtifactId=vaadin-archetype-application \
- -DarchetypeVersion=8.1.3 \
+ -DarchetypeVersion=8.1.6 \
  -DgroupId=org.vaadin.vaadinfiddle \
  -DartifactId=fiddleapp \
  -Dversion=0.1
