@@ -24,9 +24,11 @@ RUN cd /webapp/fiddleapp ; \
 RUN cd /webapp/fiddleapp ; \
  mvn jetty:start
 
-# remove the stub to make room for the volume that will be mounted here
-RUN rm -rf /webapp/fiddleapp ; \
- mkdir /webapp/fiddleapp
+# remove the stub
+RUN rm -rf /webapp/fiddleapp
 
-# need to chage back to root user as the maven image runs some commands that expect rw permissions to /root/.m2/
+COPY runner-entrypoint.sh /usr/local/bin/runner-entrypoint.sh
+
+# need to chage back to root to chown the /fiddleapp directory to vaadin:vaadin
 USER root
+ENTRYPOINT ["/usr/local/bin/runner-entrypoint.sh"]
